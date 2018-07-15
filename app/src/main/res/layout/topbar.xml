@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/commtopbar"
     android:layout_width="match_parent"
+    android:background="@color/white"
     android:layout_height="?android:actionBarSize"
     >
 
@@ -14,15 +15,29 @@
         android:text="未设置标题"
         android:textSize="@dimen/x22" />
 
-    <TextView
+    <ImageView
         android:id="@+id/actionbar_back"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_marginLeft="@dimen/x10"
-        android:text="@string/Back"
-        android:textColor="@color/actionbar_title_color"
-        android:textSize="@dimen/x20"
-        />
+        android:src="@mipmap/navbar_btn_back_nor"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/divider"/>
+
+    <!--<TextView-->
+        <!--android:id="@+id/actionbar_back"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_centerVertical="true"-->
+        <!--android:layout_marginLeft="@dimen/x10"-->
+        <!--android:text="@string/Back"-->
+        <!--android:textColor="@color/actionbar_title_color"-->
+        <!--android:textSize="@dimen/x20"-->
+        <!--/>-->
 
 </RelativeLayout>

@@ -2,6 +2,7 @@ package top.yundesign.fmz.App;
 
 import android.annotation.SuppressLint;
 import android.content.res.Resources;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
@@ -88,6 +89,7 @@ public abstract class AppActivity extends BaseActivity {
         mActionBar.setDisplayShowTitleEnabled(false);
         mActionBar.setDisplayShowCustomEnabled(true);
         mActionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        mActionBar.setBackgroundDrawable(new BitmapDrawable());
         mActionBar.setCustomView(topBar, LAYOUT_PARAMS);
         Toolbar parent = (Toolbar) topBar.getParent();
         parent.setContentInsetsAbsolute(0, 0);
