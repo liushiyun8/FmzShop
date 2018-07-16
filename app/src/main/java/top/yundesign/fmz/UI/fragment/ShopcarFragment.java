@@ -62,6 +62,11 @@ public class ShopcarFragment extends BaseFragment {
     }
 
     @Override
+    public String getTitle() {
+        return "购物车";
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment

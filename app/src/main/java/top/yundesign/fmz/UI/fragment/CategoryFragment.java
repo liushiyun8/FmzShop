@@ -8,6 +8,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.FrameLayout;
 import android.widget.ListView;
@@ -94,6 +96,14 @@ public class CategoryFragment extends BaseFragment {
          initSearchView(searchV);
         String[] types = getResources().getStringArray(R.array.type);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(activity, R.layout.mysimple_item,R.id.text, types);
+        lv.setChoiceMode(AbsListView.CHOICE_MODE_SINGLE);
+        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                lv.setItemChecked(i,true);
+            }
+        });
+        lv.setVerticalScrollBarEnabled(false);
         lv.setAdapter(adapter);
     }
 

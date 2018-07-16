@@ -1,7 +1,9 @@
 package top.yundesign.fmz.UI.fragment;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -56,12 +58,6 @@ public class MineFragment extends BaseFragment {
         }
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_mine, container, false);
-    }
 
     @Override
     protected int getLayout() {
@@ -70,7 +66,9 @@ public class MineFragment extends BaseFragment {
 
     @Override
     protected void initView(View view) {
-
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            activity.getWindow().setStatusBarColor(Color.parseColor("#4BCA55"));
+        }
     }
 
 }

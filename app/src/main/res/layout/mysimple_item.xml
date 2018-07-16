@@ -3,6 +3,10 @@
     android:orientation="horizontal" android:layout_width="match_parent"
     android:gravity="center"
     android:layout_height="match_parent">
+    <View
+        android:layout_width="4dp"
+        android:background="@drawable/view_selct"
+        android:layout_height="match_parent"/>
     <TextView
         android:id="@+id/text"
         android:gravity="center"
