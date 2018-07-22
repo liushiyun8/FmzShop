@@ -46,6 +46,14 @@ public class App extends Application {
         return appComponent;
     }
 
+    public DbManager getDb() {
+        return db;
+    }
+
+    public SpUtils getmSp() {
+        return mSp;
+    }
+
     private void InitApp() {
         allActivities=new LinkedList<>();
         x.Ext.init(this);

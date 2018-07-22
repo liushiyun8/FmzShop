@@ -3,6 +3,7 @@ package top.yundesign.fmz.UI.activity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.InputType;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
@@ -11,11 +12,20 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import top.yundesign.fmz.App.AppActivity;
+import top.yundesign.fmz.Manager.HttpManager;
+import top.yundesign.fmz.Manager.MyCallback;
 import top.yundesign.fmz.R;
+import top.yundesign.fmz.bean.User;
+import top.yundesign.fmz.utils.ComUtils;
 import top.yundesign.fmz.utils.LogUtils;
 import top.yundesign.fmz.utils.StringUtils;
 
@@ -143,8 +153,42 @@ public class RegisterActivity extends AppActivity {
                 Flag=!Flag;
                 break;
             case R.id.check:
+                HttpManager.SendMessage(acount.getText().toString(), new MyCallback() {
+                    @Override
+                    public void onSuc(String result) {
+                        JSONObject jsonObject = null;
+                        try {
+                            jsonObject = new JSONObject(result);
+                            int code = jsonObject.optInt("code");
+                            String message = jsonObject.optString("message");
+                            ComUtils.shortTips(message);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onFail(int code, String msg) {
+
+                    }
+                });
                 break;
             case R.id.register:
+                String yanzhen= textYanzhen.getText().toString();
+                if(!TextUtils.isEmpty(yanzhen)){
+                    HttpManager.Register(1, acount.getText().toString(), yanzhen, pwd.getText().toString(), new MyCallback() {
+                        @Override
+                        public void onSuc(String result) {
+                                User user = new Gson().fromJson(result, User.class);
+                                user.saveToSp();
+                        }
+
+                        @Override
+                        public void onFail(int code, String msg) {
+
+                        }
+                    });
+                }else ComUtils.shortTips("请输入验证码");
                 startActivity(LoginActivity.class);
                 break;
         }

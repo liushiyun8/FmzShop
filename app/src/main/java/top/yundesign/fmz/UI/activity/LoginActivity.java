@@ -12,11 +12,20 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.gson.JsonObject;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import top.yundesign.fmz.App.AppActivity;
+import top.yundesign.fmz.Manager.HttpManager;
+import top.yundesign.fmz.Manager.MyCallback;
 import top.yundesign.fmz.R;
+import top.yundesign.fmz.config.UserConfig;
+import top.yundesign.fmz.utils.ComUtils;
 import top.yundesign.fmz.utils.LogUtils;
 import top.yundesign.fmz.utils.StringUtils;
 
@@ -179,7 +188,41 @@ public class LoginActivity extends AppActivity {
     }
 
     private void login() {
-        startActivity(MainActivity.class);
+        String name = acount.getText().toString();
+        String pwdStr = pwd.getText().toString();
+        HttpManager.Login(1,name, pwdStr, new MyCallback() {
+            @Override
+            public void onSuc(String result) {
+                LogUtils.e(TAG,result);
+                JSONObject jsonObject = null;
+                try {
+                    jsonObject = new JSONObject(result);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                if(jsonObject!=null){
+                    int code = jsonObject.optInt("code");
+                    if(code==0){
+                        JSONObject datao= jsonObject.optJSONObject("data");
+                        String token = datao.optString("token");
+                        int userId = datao.optInt("userId");
+                        ComUtils.shortTips("登录成功");
+                        mSp.put("token",token);
+                        mSp.put("userId",userId);
+                        UserConfig.token=token;
+                        UserConfig.userId=userId;
+                        startActivity(MainActivity.class);
+                        finish();
+                    }else ComUtils.shortTips("登录失败");
+
+                }
+            }
+
+            @Override
+            public void onFail(int code, String msg) {
+                ComUtils.shortTips(code+msg);
+            }
+        });
     }
 
     private void switchLay(Boolean isAccount) {

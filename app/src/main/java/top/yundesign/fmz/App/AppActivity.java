@@ -35,7 +35,7 @@ public abstract class AppActivity extends BaseActivity {
     protected Resources mResources;
 
     @Inject
-    protected SpUtils mPreferencesManager;
+    protected SpUtils mSp;
 
     @Inject
     protected DbManager db;
