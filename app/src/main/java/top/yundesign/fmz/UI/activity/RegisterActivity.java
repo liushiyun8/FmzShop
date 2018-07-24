@@ -24,6 +24,7 @@ import top.yundesign.fmz.App.AppActivity;
 import top.yundesign.fmz.Manager.HttpManager;
 import top.yundesign.fmz.Manager.MyCallback;
 import top.yundesign.fmz.R;
+import top.yundesign.fmz.bean.Test;
 import top.yundesign.fmz.bean.User;
 import top.yundesign.fmz.utils.ComUtils;
 import top.yundesign.fmz.utils.LogUtils;
@@ -49,18 +50,12 @@ public class RegisterActivity extends AppActivity {
     ImageView show;
     @BindView(R.id.layout_pwd)
     LinearLayout layoutPwd;
-    @BindView(R.id.sure)
+    @BindView(R.id.register)
     Button sure;
     @BindView(R.id.agree)
     TextView agree;
     private boolean Flag;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_register);
-        ButterKnife.bind(this);
-    }
 
     @Override
     protected int getContentViewId() {
@@ -94,8 +89,8 @@ public class RegisterActivity extends AppActivity {
                     if (StringUtils.isPhoneNum(s.toString())) {
                         LogUtils.e(TAG, "被调用了");
                         acount.clearFocus();
-                        pwd.requestFocus();
-                        pwd.performClick();
+                        textYanzhen.requestFocus();
+                        textYanzhen.performClick();
                         check.setEnabled(true);
                     }else check.setEnabled(false);
                     if (s.length() > 11) {
@@ -104,6 +99,29 @@ public class RegisterActivity extends AppActivity {
                 } else {
                     sure.setEnabled(false);
                     dele.setVisibility(View.GONE);
+                }
+            }
+        });
+        textYanzhen.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if(!"".equals(s.toString())&&s.length()>=6){
+                    textYanzhen.clearFocus();
+                    pwd.requestFocus();
+                    pwd.performClick();
+                    if(s.length()>6){
+                        s.delete(6,s.length());
+                    }
                 }
             }
         });
@@ -123,6 +141,7 @@ public class RegisterActivity extends AppActivity {
                     dele1.setVisibility(View.VISIBLE);
                     if (s.length() >= 6)
                         sure.setEnabled(true);
+                    else sure.setEnabled(false);
                 } else {
                     sure.setEnabled(false);
                     dele1.setVisibility(View.GONE);
@@ -179,8 +198,16 @@ public class RegisterActivity extends AppActivity {
                     HttpManager.Register(1, acount.getText().toString(), yanzhen, pwd.getText().toString(), new MyCallback() {
                         @Override
                         public void onSuc(String result) {
-                                User user = new Gson().fromJson(result, User.class);
-                                user.saveToSp();
+                            JSONObject jsonObject = null;
+                            try {
+                                jsonObject = new JSONObject(result);
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                            JSONObject data = jsonObject.optJSONObject("data");
+                            Test user = new Gson().fromJson(data.toString(), Test.class);
+                            LogUtils.e(TAG,user.getLogo()+"Nickn"+user.getNickname()+"UserId:"+user.getUserId()+"token:"+user.getToken());
+                            user.saveToSp();
                         }
 
                         @Override

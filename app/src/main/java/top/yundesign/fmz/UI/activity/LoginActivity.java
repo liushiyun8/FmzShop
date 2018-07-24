@@ -1,10 +1,8 @@
 package top.yundesign.fmz.UI.activity;
 
-import android.os.Bundle;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -12,19 +10,16 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.google.gson.JsonObject;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import top.yundesign.fmz.App.AppActivity;
 import top.yundesign.fmz.Manager.HttpManager;
 import top.yundesign.fmz.Manager.MyCallback;
 import top.yundesign.fmz.R;
-import top.yundesign.fmz.config.UserConfig;
+import top.yundesign.fmz.bean.User;
 import top.yundesign.fmz.utils.ComUtils;
 import top.yundesign.fmz.utils.LogUtils;
 import top.yundesign.fmz.utils.StringUtils;
@@ -209,8 +204,8 @@ public class LoginActivity extends AppActivity {
                         ComUtils.shortTips("登录成功");
                         mSp.put("token",token);
                         mSp.put("userId",userId);
-                        UserConfig.token=token;
-                        UserConfig.userId=userId;
+                        User.token=token;
+                        User.userId=userId;
                         startActivity(MainActivity.class);
                         finish();
                     }else ComUtils.shortTips("登录失败");

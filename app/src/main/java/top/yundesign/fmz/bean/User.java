@@ -3,25 +3,32 @@ package top.yundesign.fmz.bean;
 import java.lang.reflect.Field;
 
 import top.yundesign.fmz.App.App;
+import top.yundesign.fmz.utils.LogUtils;
 import top.yundesign.fmz.utils.SpUtils;
 
 public class User {
     public static String phone;
-    public static String token= (String) App.app.getmSp().get("token","");
-    public static int userId= (int) App.app.getmSp().get("token",0);
+    public static String token;
+    public static int userId;
     public static int type;
     public static String pwd;
     public static String openId;
     public static String nickname;
     public static String logo;
+
     static {
         SpUtils spUtils = App.app.getmSp();
         phone= (String) spUtils.get("phone","");
         token= (String) spUtils.get("token","");
+        userId=(int) spUtils.get("userId",0);
+        type=(int)spUtils.get("type",0);
+        pwd=(String) spUtils.get("pwd","");
+        openId=(String) spUtils.get("openId","");
+        nickname=(String) spUtils.get("nickname","");
+        logo=(String) spUtils.get("logo","");
     }
 
-    public User() {
-    }
+
 
     public String getPhone() {
         return phone;
@@ -87,16 +94,6 @@ public class User {
         this.logo = logo;
     }
 
-    public void saveToSp() {
-        Class<? extends User> aClass = getClass();
-        Field[] declaredFields = aClass.getDeclaredFields();
-        for (int i = 0; i < declaredFields.length; i++) {
-            Field field = declaredFields[i];
-            try {
-                App.app.getmSp().put(field.getName(),field.get(this));
-            } catch (IllegalAccessException e) {
-                e.printStackTrace();
-            }
-        }
-    }
+
+
 }

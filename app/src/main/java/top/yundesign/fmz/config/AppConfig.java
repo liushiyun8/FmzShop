@@ -13,4 +13,5 @@ public class AppConfig {
     public static final String WORK_PHOTO_PATH = WORK_PATH + File.separator + "Photo";
     public static final boolean isDebug = true;
     public static final String APP_NAME = "Fmz";
+
 }
