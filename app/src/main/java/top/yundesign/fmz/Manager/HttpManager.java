@@ -46,11 +46,29 @@ public class HttpManager {
                                 CANCLE_ORDER=HOST+"/api/order/cancelOrder",
                                 SHOP=HOST+"/api/shop",
                                 COUPONCENTER=HOST+"/api/coupon/couponCenter",
-                                MYCOUPON=HOST+"/api/myCoupon";
-
-
-
-
+                                MYCOUPON=HOST+"/api/myCoupon",
+                                GET_COUPON=HOST+"/api/coupon/getCoupon",
+                                SCORE_PRODUCT=HOST+"/api/product/scoreproduct",
+                                SCORE_CHANGE=HOST+"/api/product/exchange",
+                                TYPE_AND_BRAND=HOST+"/api/index/getTypeAndBrand",
+                                PRODUCT_DETAIL=HOST+"/api/product/detail",
+                                SEC_KILL=HOST+"/api/index/seckill",
+                                PRODUCT_BYTAG=HOST+"/api/index/productByTag",
+                                VALID_COUPON=HOST+"/api/product/validCoupon",
+                                CREAT_ORDER=HOST+"/api/order/createOrder",
+                                ORDER_DETAIL=HOST+"/api/order/orderDetail",
+                                MY_ORDER=HOST+"/api/order/myOrder",
+                                VIDEO_LIST=HOST+"/api/video/videoList",
+                                VIDEO_TYPELIST=HOST+"/api/video/videoTypeList",
+                                LIKE=HOST+"/api/user/likeThis",
+                                VIDEO_DETAIL=HOST+"/api/video/videoDetail",
+                                MDOU_DETAI=HOST+"/api/product/mDouDetail",
+                                BC_PRODUCT=HOST+"/api/order/bcProduct",
+                                BC_BUY=HOST+"/api/order/bcBuy",
+                                IS_BCNUMBER=HOST+"/api/order/isBcMember",
+                                ORDER_COUPON=HOST+"/api/order/getOrderCoupon",
+                                MDOULIST=HOST+"/api/product/mDouList",
+                                MDOU_CHANGE=HOST+"/api/product/mDouExchange";
 
 
 
@@ -312,7 +330,7 @@ public class HttpManager {
         x.http().post(params,myCallback);
     }
 
-    public static void getCoupon(int type_id,int page,int pageNumber,MyCallback myCallback){
+    public static void getCouponCenter(int type_id,int page,int pageNumber,MyCallback myCallback){
         RequestParams params = getPostRequestParams(COUPONCENTER);
         setHeader(params);
         params.addParameter("type_id",type_id);
@@ -329,12 +347,169 @@ public class HttpManager {
         x.http().post(params,myCallback);
     }
 
+    public static void getCoupon(int coupon_id,MyCallback myCallback){
+        RequestParams params = getPostRequestParams(GET_COUPON);
+        setHeader(params);
+        params.addParameter("coupon_id",coupon_id);
+        x.http().post(params,myCallback);
+    }
 
+    public static void getScoreProduct(int page,int pageNumber,MyCallback myCallback){
+        RequestParams params = getPostRequestParams(SCORE_PRODUCT);
+        setHeader(params);
+        params.addParameter("page",page);
+        params.addParameter("pageNumber",pageNumber);
+        x.http().post(params,myCallback);
+    }
 
+    public static void ScoreChange(String uid,String productid,MyCallback myCallback){
+        RequestParams params = getPostRequestParams(SCORE_CHANGE);
+        setHeader(params);
+        params.addParameter("uid",uid);
+        params.addParameter("productid",productid);
+        x.http().post(params,myCallback);
+    }
 
+    public static void getTypeAndBrand(int parent_id,MyCallback myCallback){
+        RequestParams params = getPostRequestParams(TYPE_AND_BRAND);
+        setHeader(params);
+        params.addParameter("parent_id",parent_id);
+        x.http().post(params,myCallback);
+    }
 
+    public static void getSecKill(int type,int page,int pageNumber,MyCallback myCallback){
+        RequestParams params = getPostRequestParams(SEC_KILL);
+        setHeader(params);
+        params.addParameter("type",type);
+        params.addParameter("page",page);
+        params.addParameter("pageNumber",pageNumber);
+        x.http().post(params,myCallback);
+    }
 
+    public static void getProductByTag(int tag,int type,int page,int pageNumber,MyCallback myCallback){
+        RequestParams params = getPostRequestParams(PRODUCT_BYTAG);
+        setHeader(params);
+        params.addParameter("tag",tag);
+        params.addParameter("type",type);
+        params.addParameter("page",page);
+        params.addParameter("pageNumber",pageNumber);
+        x.http().post(params,myCallback);
+    }
+    public static void getProduct_detail(int id,MyCallback myCallback){
+        RequestParams params = getPostRequestParams(PRODUCT_DETAIL);
+        setHeader(params);
+        params.addParameter("id",id);
+        x.http().post(params,myCallback);
+    }
 
+    public static void getValidCoupon(int shop_id,int product_id,int type_id,MyCallback myCallback){
+        RequestParams params = getPostRequestParams(VALID_COUPON);
+        setHeader(params);
+        params.addParameter("shop_id",shop_id);
+        params.addParameter("product_id",product_id);
+        params.addParameter("type_id",type_id);
+        x.http().post(params,myCallback);
+    }
+
+    public static void creatOrder(Map<String,Object> map,MyCallback myCallback){
+        RequestParams params = getPostRequestParams(CREAT_ORDER);
+        setHeader(params);
+        params.setBodyContent(new Gson().toJson(map));
+        x.http().post(params,myCallback);
+    }
+
+    public static void orderDetail(int id,MyCallback myCallback){
+        RequestParams params = getPostRequestParams(ORDER_DETAIL);
+        setHeader(params);
+        params.addParameter("id",id);
+        x.http().post(params,myCallback);
+    }
+    public static void getMyorder(int type,int page,int pageNumber,MyCallback myCallback){
+        RequestParams params = getPostRequestParams(MY_ORDER);
+        setHeader(params);
+        params.addParameter("type",type);
+        params.addParameter("page",page);
+        params.addParameter("pageNumber",pageNumber);
+        x.http().post(params,myCallback);
+    }
+  public static void getVideoList(int type,int page,int pageNumber,MyCallback myCallback){
+        RequestParams params = getPostRequestParams(VIDEO_LIST);
+        setHeader(params);
+        params.addParameter("type",type);
+        params.addParameter("page",page);
+        params.addParameter("pageNumber",pageNumber);
+        x.http().post(params,myCallback);
+    }
+
+    public static void getVideoTypeList(int id,String title,MyCallback myCallback){
+        RequestParams params = getPostRequestParams(VIDEO_TYPELIST);
+        setHeader(params);
+        params.addParameter("id",id);
+        params.addParameter("title",title);
+        x.http().post(params,myCallback);
+    }
+
+    public static void getMyLike(int id,int action,MyCallback myCallback){
+        RequestParams params = getPostRequestParams(LIKE);
+        setHeader(params);
+        params.addParameter("id",id);
+        params.addParameter("action",action);
+        x.http().post(params,myCallback);
+    }
+
+    public static void getMyVideoDetail(int id,MyCallback myCallback){
+        RequestParams params = getPostRequestParams(VIDEO_DETAIL);
+        setHeader(params);
+        params.addParameter("id",id);
+        x.http().post(params,myCallback);
+    }
+
+    public static void getMyDouDetail(MyCallback myCallback){
+        RequestParams params = getPostRequestParams(MDOU_DETAI);
+        setHeader(params);
+        x.http().post(params,myCallback);
+    }
+
+   public static void getBcProduct(MyCallback myCallback){
+        RequestParams params = getPostRequestParams(BC_PRODUCT);
+        setHeader(params);
+        x.http().post(params,myCallback);
+    }
+
+    public static void buyBcProduct(int id,MyCallback myCallback){
+        RequestParams params = getPostRequestParams(BC_BUY);
+        setHeader(params);
+        params.addParameter("id",id);
+        x.http().post(params,myCallback);
+    }
+    public static void isBcNumber(MyCallback myCallback){
+        RequestParams params = getPostRequestParams(IS_BCNUMBER);
+        setHeader(params);
+        x.http().post(params,myCallback);
+    }
+
+    public static void getOrderCoupon(String[] goods,int goods_id,int goods_num,String store_id,MyCallback myCallback){
+        RequestParams params = getPostRequestParams(ORDER_COUPON);
+        setHeader(params);
+        params.addParameter("goods",goods);
+        params.addParameter("goods_id",goods_id);
+        params.addParameter("goods_num",goods_num);
+        params.addParameter("store_id",store_id);
+        x.http().post(params,myCallback);
+    }
+
+    public static void getMdouList(MyCallback myCallback){
+        RequestParams params = getPostRequestParams(MDOULIST);
+        setHeader(params);
+        x.http().post(params,myCallback);
+    }
+
+    public static void getMdouChange(int id,MyCallback myCallback){
+        RequestParams params = getPostRequestParams(MDOU_CHANGE);
+        setHeader(params);
+        params.addParameter("id",id);
+        x.http().post(params,myCallback);
+    }
 
 
 
