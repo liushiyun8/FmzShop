@@ -17,8 +17,9 @@ import top.yundesign.fmz.bean.User;
 import top.yundesign.fmz.utils.LogUtils;
 
 public class HttpManager {
-    public static final String HOST="http://i.fengmaozhai.com";
-    public static final String  LOGINURL=HOST+"/api/user/login",
+    public static final String  HOST="http://i.fengmaozhai.com",
+
+                                LOGINURL=HOST+"/api/user/login",
                                 REGISTERURL=HOST+"/api/user/register",
                                 SENDEMSG=HOST+"/api/user/sendMessage",
                                 UPDATE_PWD=HOST+"/api/user/updatePassword",
@@ -41,6 +42,7 @@ public class HttpManager {
                                 UPLOAD_VIDEO=HOST+"/api/video/uploadVideo",
                                 VIDEO_COMMENTLIST=HOST+"/api/video/commentList",
                                 VIDEO_COMMENT_PUBLISH=HOST+"/api/video/publishComment",
+
                                 SHOPPING_CART=HOST+"/api/order/shoppingCart",
                                 PRODUCT_SKU=HOST+"/api/product/sku",
                                 CANCLE_ORDER=HOST+"/api/order/cancelOrder",
