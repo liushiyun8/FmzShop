@@ -20,6 +20,20 @@
         <item>其他</item>
     </string-array>
 
+    <string-array name="fenlei">
+        <item>熟食</item>
+        <item>坚果</item>
+        <item>酒类</item>
+        <item>米面</item>
+        <item>签到</item>
+        <item>领劵中心</item>
+        <item>毛豆兑换</item>
+        <item>限时秒杀</item>
+        <item>9.9元特卖</item>
+        <item>黑卡会员</item>
+    </string-array>
+
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="search_input">请输入搜索内容</string>

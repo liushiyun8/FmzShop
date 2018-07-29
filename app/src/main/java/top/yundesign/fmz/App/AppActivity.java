@@ -2,12 +2,15 @@ package top.yundesign.fmz.App;
 
 import android.annotation.SuppressLint;
 import android.content.res.Resources;
+import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.TextView;
 import org.greenrobot.eventbus.EventBus;
 import org.xutils.DbManager;
@@ -52,6 +55,7 @@ public abstract class AppActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         if(isNeedEvent()){
             EventBus.getDefault().register(this);
         }
@@ -63,6 +67,9 @@ public abstract class AppActivity extends BaseActivity {
         if (myHandleMessage != null) {
             mWeakReferenceHandler = new WeakReferenceHandler(this);
             mWeakReferenceHandler.setHandleMessage(myHandleMessage);
+        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            getWindow().setStatusBarColor(Color.parseColor("#4BCA55"));
         }
         init();
     }
@@ -83,6 +90,8 @@ public abstract class AppActivity extends BaseActivity {
     protected void setupTopBar() {
         View topBar = getLayoutInflater().inflate(R.layout.topbar, null);
         mActionBar = getSupportActionBar();
+        if(mActionBar==null)
+            return;
         mActionBar.setDisplayUseLogoEnabled(false);
         mActionBar.setDisplayHomeAsUpEnabled(false);
         mActionBar.setDisplayShowHomeEnabled(false);

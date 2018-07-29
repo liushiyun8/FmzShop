@@ -22,8 +22,9 @@
     <color name="title_bar">#192548</color>
     <color name="actionbar_title_color">#192548</color>
     <color name="home_selecotr_bg">#43C7DB</color>
-
-
+    <color name="status_bg">#4BCA55</color>
+    <color name="red_qian">#E55151</color>
+    <color name="red_dark">#DE180B</color>
 
 
     <drawable name="enable_no">#cccccc</drawable>

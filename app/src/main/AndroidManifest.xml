@@ -33,9 +33,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".UI.activity.MainActivity" />
+        <activity
+            android:name=".UI.activity.MainActivity"
+            android:theme="@style/AppTheme.Notitle" />
         <activity android:name=".UI.activity.RegisterActivity" />
-        <activity android:name=".UI.activity.ForgetActivity"></activity>
+        <activity android:name=".UI.activity.ForgetActivity" />
+        <activity android:name=".UI.activity.WebActivity" />
+        <activity android:name=".UI.activity.ShopDetailActivity" />
+        <activity android:name=".UI.activity.ShangpingActivity" />
+        <activity android:name=".UI.activity.OrderActivity" />
+        <activity android:name=".UI.activity.MineActivity"></activity>
     </application>
 
 </manifest>

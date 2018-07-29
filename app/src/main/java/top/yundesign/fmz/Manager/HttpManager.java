@@ -18,7 +18,7 @@ import top.yundesign.fmz.utils.LogUtils;
 
 public class HttpManager {
     public static final String  HOST="http://i.fengmaozhai.com",
-
+                                TESTHOST="http://i.fengmaozhai.com",
                                 LOGINURL=HOST+"/api/user/login",
                                 REGISTERURL=HOST+"/api/user/register",
                                 SENDEMSG=HOST+"/api/user/sendMessage",
@@ -87,6 +87,9 @@ public class HttpManager {
     }
 
     private static void setHeader(RequestParams params) {
+        params.setHeader("fmz-app-version","V1.0");
+        params.setHeader("fmz-system-version","android:8.1.0");
+        params.setHeader("fmz-phone-info","");
         params.setHeader("fmz-token", User.token);
         params.setHeader("fmz-userid",User.userId+"");
     }
@@ -100,7 +103,8 @@ public class HttpManager {
      */
     public static void Login(int type,String phone,String pwd,MyCallback myCallback){
         RequestParams params= getPostRequestParams(LOGINURL);
-        params.addParameter("username",phone);
+        setHeader(params);
+        params.addParameter("phone",phone);
         params.addParameter("type",type);
         params.addBodyParameter("password",pwd);
         x.http().post(params,myCallback);
@@ -118,6 +122,7 @@ public class HttpManager {
 
     public static void Register(int type,String phone,String code,String pwd,MyCallback myCallback){
         RequestParams params = getPostRequestParams(REGISTERURL);
+        setHeader(params);
         params.addParameter("phone",phone);
         params.addParameter("type",type);
         params.addParameter("code",code);
@@ -127,6 +132,7 @@ public class HttpManager {
 
     public static void SendMessage(String phone,MyCallback myCallback){
         RequestParams params = getPostRequestParams(SENDEMSG);
+        setHeader(params);
         params.addParameter("phone",phone);
         x.http().post(params,myCallback);
     }
@@ -426,6 +432,14 @@ public class HttpManager {
         params.addParameter("id",id);
         x.http().post(params,myCallback);
     }
+
+    /**
+     *
+     * @param type 订单状态：0：待支付、1：待发货、2：待收货、3：待评价
+     * @param page  默认为1
+     * @param pageNumber 默认为10
+     * @param myCallback   结果回调
+     */
     public static void getMyorder(int type,int page,int pageNumber,MyCallback myCallback){
         RequestParams params = getPostRequestParams(MY_ORDER);
         setHeader(params);
@@ -437,17 +451,15 @@ public class HttpManager {
   public static void getVideoList(int type,int page,int pageNumber,MyCallback myCallback){
         RequestParams params = getPostRequestParams(VIDEO_LIST);
         setHeader(params);
-        params.addParameter("type",type);
+        params.addParameter("typeid",type);
         params.addParameter("page",page);
         params.addParameter("pageNumber",pageNumber);
         x.http().post(params,myCallback);
     }
 
-    public static void getVideoTypeList(int id,String title,MyCallback myCallback){
+    public static void getVideoTypeList(MyCallback myCallback){
         RequestParams params = getPostRequestParams(VIDEO_TYPELIST);
         setHeader(params);
-        params.addParameter("id",id);
-        params.addParameter("title",title);
         x.http().post(params,myCallback);
     }
 

@@ -2,6 +2,7 @@ package top.yundesign.fmz.UI.activity;
 
 import android.text.Editable;
 import android.text.InputType;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
@@ -66,6 +67,8 @@ public class LoginActivity extends AppActivity {
     LinearLayout layoutWeichat;
     private Boolean isAccount = true;
     private boolean Flag;
+    private String name;
+    private String pwdStr;
 
     @Override
     protected int getContentViewId() {
@@ -79,6 +82,7 @@ public class LoginActivity extends AppActivity {
 
     @Override
     protected void init() {
+        login();
         loginAccount.setSelected(true);
         loginPhone.setSelected(false);
         acount.addTextChangedListener(new TextWatcher() {
@@ -183,9 +187,13 @@ public class LoginActivity extends AppActivity {
     }
 
     private void login() {
-        String name = acount.getText().toString();
-        String pwdStr = pwd.getText().toString();
-        HttpManager.Login(1,name, pwdStr, new MyCallback() {
+        name=User.phone;
+        pwdStr=User.pwd;
+        if(TextUtils.isEmpty(name)||TextUtils.isEmpty(pwdStr)){
+            name = acount.getText().toString();
+            pwdStr = pwd.getText().toString();
+        }
+        HttpManager.Login(1, name, pwdStr, new MyCallback() {
             @Override
             public void onSuc(String result) {
                 LogUtils.e(TAG,result);
@@ -204,6 +212,8 @@ public class LoginActivity extends AppActivity {
                         ComUtils.shortTips("登录成功");
                         mSp.put("token",token);
                         mSp.put("userId",userId);
+                        mSp.put("phone",name);
+                        mSp.put("pwd",pwdStr);
                         User.token=token;
                         User.userId=userId;
                         startActivity(MainActivity.class);
