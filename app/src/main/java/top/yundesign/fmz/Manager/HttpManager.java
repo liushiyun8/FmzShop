@@ -1,9 +1,12 @@
 package top.yundesign.fmz.Manager;
 
+import android.os.Build;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import com.se7en.utils.SystemUtil;
 
 import org.xutils.http.HttpMethod;
 import org.xutils.http.RequestParams;
@@ -18,7 +21,7 @@ import top.yundesign.fmz.utils.LogUtils;
 
 public class HttpManager {
     public static final String  HOST="http://i.fengmaozhai.com",
-                                TESTHOST="http://i.fengmaozhai.com",
+                                TESTHOST="",
                                 LOGINURL=HOST+"/api/user/login",
                                 REGISTERURL=HOST+"/api/user/register",
                                 SENDEMSG=HOST+"/api/user/sendMessage",
@@ -87,11 +90,15 @@ public class HttpManager {
     }
 
     private static void setHeader(RequestParams params) {
-        params.setHeader("fmz-app-version","V1.0");
-        params.setHeader("fmz-system-version","android:8.1.0");
-        params.setHeader("fmz-phone-info","");
+        setNotokenHeader(params);
         params.setHeader("fmz-token", User.token);
         params.setHeader("fmz-userid",User.userId+"");
+    }
+   private static void setNotokenHeader(RequestParams params) {
+        params.setHeader("fmz-app-version",SystemUtil.getSystemVersion());
+        params.setHeader("fmz-system-version","android:"+Build.VERSION.RELEASE);
+        params.setHeader("fmz-phone-info",Build.MODEL);
+
     }
 
     /**
@@ -103,7 +110,7 @@ public class HttpManager {
      */
     public static void Login(int type,String phone,String pwd,MyCallback myCallback){
         RequestParams params= getPostRequestParams(LOGINURL);
-        setHeader(params);
+        setNotokenHeader(params);
         params.addParameter("phone",phone);
         params.addParameter("type",type);
         params.addBodyParameter("password",pwd);
@@ -130,9 +137,16 @@ public class HttpManager {
         x.http().post(params,myCallback);
     }
 
-    public static void SendMessage(String phone,MyCallback myCallback){
+    /**
+     *
+     * @param type  type 发送类型：1、注册、2：登陆、3：修改密码
+     * @param phone  手机号码
+     * @param myCallback 结果
+     */
+    public static void SendMessage(int type,String phone,MyCallback myCallback){
         RequestParams params = getPostRequestParams(SENDEMSG);
-        setHeader(params);
+        setNotokenHeader(params);
+        params.addParameter("type", type);
         params.addParameter("phone",phone);
         x.http().post(params,myCallback);
     }
@@ -221,9 +235,11 @@ public class HttpManager {
         x.http().post(params,myCallback);
     }
 
-    public static void getIndex(MyCallback myCallback){
+    public static void getIndex(int page,int pageNumber,MyCallback myCallback){
         RequestParams params = getPostRequestParams(INDEX);
         setHeader(params);
+        params.addParameter("page", page);
+        params.addParameter("pageNumber",pageNumber );
         x.http().post(params,myCallback);
     }
 

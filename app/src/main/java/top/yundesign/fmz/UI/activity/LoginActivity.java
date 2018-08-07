@@ -11,6 +11,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -20,6 +22,7 @@ import top.yundesign.fmz.App.AppActivity;
 import top.yundesign.fmz.Manager.HttpManager;
 import top.yundesign.fmz.Manager.MyCallback;
 import top.yundesign.fmz.R;
+import top.yundesign.fmz.bean.Test;
 import top.yundesign.fmz.bean.User;
 import top.yundesign.fmz.utils.ComUtils;
 import top.yundesign.fmz.utils.LogUtils;
@@ -82,7 +85,8 @@ public class LoginActivity extends AppActivity {
 
     @Override
     protected void init() {
-        login();
+        if(!TextUtils.isEmpty(User.token))
+            startActivity(MainActivity.class);
         loginAccount.setSelected(true);
         loginPhone.setSelected(false);
         acount.addTextChangedListener(new TextWatcher() {
@@ -187,12 +191,10 @@ public class LoginActivity extends AppActivity {
     }
 
     private void login() {
-        name=User.phone;
-        pwdStr=User.pwd;
-        if(TextUtils.isEmpty(name)||TextUtils.isEmpty(pwdStr)){
-            name = acount.getText().toString();
-            pwdStr = pwd.getText().toString();
-        }
+         name = acount.getText().toString();
+         pwdStr = pwd.getText().toString();
+        if(TextUtils.isEmpty(name)||TextUtils.isEmpty(pwdStr))
+            return;
         HttpManager.Login(1, name, pwdStr, new MyCallback() {
             @Override
             public void onSuc(String result) {
@@ -210,10 +212,12 @@ public class LoginActivity extends AppActivity {
                         String token = datao.optString("token");
                         int userId = datao.optInt("userId");
                         ComUtils.shortTips("登录成功");
-                        mSp.put("token",token);
-                        mSp.put("userId",userId);
-                        mSp.put("phone",name);
-                        mSp.put("pwd",pwdStr);
+//                        mSp.put("token",token);
+//                        mSp.put("userId",userId);
+//                        mSp.put("phone",name);
+//                        mSp.put("pwd",pwdStr);
+                        Test test = new Gson().fromJson(datao.toString(), Test.class);
+                        test.saveToSp();
                         User.token=token;
                         User.userId=userId;
                         startActivity(MainActivity.class);

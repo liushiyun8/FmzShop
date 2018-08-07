@@ -139,7 +139,7 @@ public class HomeFragment extends BaseFragment {
         initGridView();
         initViewPager();
         initRecycleView();
-        HttpManager.getIndex(new MyCallback() {
+        HttpManager.getIndex(1,10,new MyCallback() {
 
             @Override
             public void onSuc(String result) {

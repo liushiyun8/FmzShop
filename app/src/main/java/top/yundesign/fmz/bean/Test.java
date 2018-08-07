@@ -18,6 +18,13 @@ public class Test {
     private int userId;
     private String nickname;
     private String logo;
+    /**
+     * phone : 17603013802
+     * sex : 0
+     */
+
+    private String phone;
+    private int sex;
 
     public String getToken() {
         return token;
@@ -64,5 +71,21 @@ public class Test {
                 e.printStackTrace();
             }
         }
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public int getSex() {
+        return sex;
+    }
+
+    public void setSex(int sex) {
+        this.sex = sex;
     }
 }

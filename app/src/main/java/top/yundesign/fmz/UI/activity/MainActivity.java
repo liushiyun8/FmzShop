@@ -1,17 +1,11 @@
 package top.yundesign.fmz.UI.activity;
 
-import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.widget.RadioGroup;
-import android.widget.TextView;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import top.yundesign.fmz.App.AppActivity;
 import top.yundesign.fmz.R;
 import top.yundesign.fmz.UI.fragment.HomeFragment;

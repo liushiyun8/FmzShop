@@ -6,6 +6,9 @@ import android.app.Application;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.os.Bundle;
+
+import com.se7en.utils.SystemUtil;
+
 import org.xutils.DbManager;
 import org.xutils.x;
 
@@ -60,6 +63,7 @@ public class App extends Application {
         appComponent = DaggerAppComponent.builder()
                 .appModule(new AppModule(this)).build();
         appComponent.inject(this);
+        SystemUtil.setContext(this);
         registerActivitysCallbacks();
     }
 

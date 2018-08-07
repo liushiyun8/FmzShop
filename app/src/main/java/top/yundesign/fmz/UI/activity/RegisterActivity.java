@@ -172,7 +172,7 @@ public class RegisterActivity extends AppActivity {
                 Flag=!Flag;
                 break;
             case R.id.check:
-                HttpManager.SendMessage(acount.getText().toString(), new MyCallback() {
+                HttpManager.SendMessage(1,acount.getText().toString(), new MyCallback() {
                     @Override
                     public void onSuc(String result) {
                         JSONObject jsonObject = null;
@@ -208,15 +208,20 @@ public class RegisterActivity extends AppActivity {
                             Test user = new Gson().fromJson(data.toString(), Test.class);
                             LogUtils.e(TAG,user.getLogo()+"Nickn"+user.getNickname()+"UserId:"+user.getUserId()+"token:"+user.getToken());
                             user.saveToSp();
+                            User.phone=user.getPhone();
+                            User.userId=user.getUserId();
+                            User.token=user.getToken();
+                            User.pwd=pwd.getText().toString();
+                            startActivity(LoginActivity.class);
                         }
 
                         @Override
                         public void onFail(int code, String msg) {
-
+                               ComUtils.shortTips(msg);
                         }
                     });
                 }else ComUtils.shortTips("请输入验证码");
-                startActivity(LoginActivity.class);
+
                 break;
         }
     }
